@@ -1,0 +1,94 @@
+package com.silverlaine.controleDeEstoque.bussiness;
+
+import com.silverlaine.controleDeEstoque.dao.UsuarioDAO;
+import com.silverlaine.controleDeEstoque.entidades.Usuario;
+
+
+public class UsuarioBussiness {
+	
+	public void testeDeInsercaoDeUsuario() {
+		
+		Usuario usuario = new Usuario();
+		
+		usuario.setId(0);
+		usuario.setEmail("teste@teste.com.br");
+		usuario.setLogin("usuario teste"); 
+		usuario.setNome("usuario teste");
+		usuario.setSenha("123");
+		
+		UsuarioDAO dao = new UsuarioDAO();
+		
+		dao.testeDeInserção(usuario);
+		
+	}
+	
+	public String gravarUSuario (String nome, String senha, String email, String login) { 
+		
+		String resposta = "";
+		
+		System.out.println("Iniciando inserçao de usuario");
+		
+		if(!nome.equals(null) || !senha.equals(null) || email.equals(null) || login.equals(null)){ 
+			Usuario usuario = new Usuario ();
+			
+			if (senha.length() > 15) {
+				int tamanhoDaSenha = senha.length();
+				System.out.println("sua senha deve conter no maximo 15 caracteres, mas contem " + tamanhoDaSenha);
+				resposta = "sua senha deve conter no maximo 15 caracteres";
+				return resposta;
+			}
+			
+			System.out.println("preenchendo campos");
+			usuario.setNome(nome);
+			usuario.setSenha(senha);
+			usuario.setEmail(email); 
+			usuario.setLogin(login);
+			
+			if (comparar(usuario)) {
+				resposta = "Login ja existente, por favor, escolha um login diferente";
+				return resposta;
+			}
+			
+			UsuarioDAO dao = new UsuarioDAO();
+			System.out.println("persistindo usuario");
+			dao.testeDeInserção(usuario);
+			
+			resposta = "salvo com sucesso";
+		} else {
+			resposta = "valores nulos";
+		}
+		
+		return resposta;
+	}
+	
+	public Boolean comparar(Usuario usuario) {
+		UsuarioDAO dao = new UsuarioDAO();
+		
+		Usuario usuarioExistente = dao.procuraUsuario(usuario.getLogin());
+		
+		if (usuarioExistente != null) {
+			System.out.println("Usuario ja existe na base de dados");
+			return true;
+			
+		} else {
+			System.out.println("Novo usuario encontrado");
+			return false;
+		}
+	}
+	public void alterarUsuario(Usuario usuario){ 
+		UsuarioDAO dao = new UsuarioDAO(); 
+		Usuario usuarioDoBanco = dao.procuraUsuario(usuario.getLogin()); 
+		if (usuarioDoBanco != null) {
+			usuario.setId(usuarioDoBanco.getId()); 
+			System.out.println("número de id do usuário do banco: " + usuarioDoBanco.getId()); 
+			dao.alterarUsuario(usuarioDoBanco);
+		
+		} else {
+			System.out.println("Usuário não existente");
+	} 
+		
+	} public Usuario pesquisarUsuario(String param) { 
+			UsuarioDAO dao = new UsuarioDAO(); return dao.procuraUsuario(param); }
+	}
+	
+	
