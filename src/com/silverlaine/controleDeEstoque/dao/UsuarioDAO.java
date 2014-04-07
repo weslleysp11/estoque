@@ -101,7 +101,7 @@ public class UsuarioDAO {
 		transaction.commit();
 //		session.close();
 		
-//		session = manager.unwrap(Session.class);
+//		session = managepossor.unwrap(Session.class);
 		transaction = session.beginTransaction();
 		
 		Usuario usuarioB = (Usuario) session.get(Usuario.class, usuario.getId());
@@ -128,19 +128,8 @@ public class UsuarioDAO {
 	}
 	
 
-	public void excluirUsuario(Usuario usuario) {  
-		EntityManager manager= getEntiEntityManager();
 	
-	  
-    try {  
-        manager.getTransaction().begin();  
-        manager.remove(usuario);  
-        manager.getTransaction().commit();  
-
-    }finally{
-    	manager.close();
-    }
-    }  
+    
 }  
 
 	

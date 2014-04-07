@@ -69,5 +69,7 @@ public class Produto {
 	}
 	public void setValidade(Date validade) {
 		this.validade = validade;
-	}	
+	}	//me explica pq tem dois pacotes entidades e com praticamente as mesmas entidades, soh que uma com telas?
+	//EH isso que ta zuando o codigo, percebeu, praticamente o mesmo nome de pacote com o mesmo nome de classe
+	//use ProdutoGUI para a tela de produtos e UsuarioGUI para a de usuario, pra nao confundir
 }

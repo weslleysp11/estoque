@@ -1,25 +1,59 @@
 package com.silverlaine.controleDeEstoque.bussiness;
 
+
+import java.sql.Date;
+
+import javax.xml.ws.Response;
+
+import com.silverlaine.controleDeEstoque.dao.ProdutoDAO;
 import com.silverlaine.controleDeEstoque.dao.UsuarioDAO;
+import com.silverlaine.controleDeEstoque.entidades.Produto;
 import com.silverlaine.controleDeEstoque.entidades.Usuario;
 
-
-public class UsuarioBussiness {
+public class ProdutoBussiness {
 	
-	public void testeDeInsercaoDeUsuario() {
+public void testeDeInsercaoDeUsuario() {
 		
-		Usuario usuario = new Usuario();
+		Produto produto = new Produto();
 		
-		usuario.setId(0);
-		usuario.setEmail("teste@teste.com.br");
-		usuario.setLogin("usuario teste"); 
-		usuario.setNome("usuario teste");
-		usuario.setSenha("123");
+		produto.setId(0);
+		produto.setNome("banana");
+		produto.setMarca("Hort");
+		produto.setTipo("Reagente");
+		produto.setArmazenamento("geladeira");
+		produto.setQuantidade(52.0);
+		produto.setValidade(Date.valueOf("2014-02-2"));
 		
-		UsuarioDAO dao = new UsuarioDAO();
 		
-		dao.testeDeInserção(usuario);
+		ProdutoDAO dao = new ProdutoDAO();
+		dao.InserirProduto(produto);
 		
+		
+		
+	}
+
+	public String gravarProduto (int id, String nome, String marca,String tipo,String armazenamento, 
+			double quantidade, Date validade){
+		
+		String reposta = "";
+		
+		System.out.println ("Iniciando a inserção de produtos");
+		
+		if (!nome.equals(null) || !marca.equals(null)|| !tipo.equals(null) ||
+				!armazenamento.equals(null) || quantidade != 0 || validade!= null){
+			Produto produto = new Produto();
+			
+			if (nome.equals(null)) {
+				System.out.println("O campo nome eh obrigatorio");
+				
+				//pronto, eh isso
+			}
+			
+	
+			
+		}
+		
+		return reposta;
 	}
 	
 	public String gravarUSuario (String nome, String senha, String email, String login) { 
@@ -91,5 +125,3 @@ public class UsuarioBussiness {
 	} public Usuario pesquisarUsuario(String param) { 
 			UsuarioDAO dao = new UsuarioDAO(); return dao.procuraUsuario(param); }
 	}
-	
-	
